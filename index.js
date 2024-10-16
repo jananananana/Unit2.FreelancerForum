@@ -12,6 +12,7 @@ const freelancers = [
   { name: "Ms. Anthropy", price: 33, occupation: "professional friend" }
 ];
 
+const shownFreelancersPrices = [];
 
 /** Adds a freelancer to the list of freelancers. */
 function addFreelancer() {  
@@ -22,17 +23,20 @@ function addFreelancer() {
   render(randomFreelancer);
 }
 
-function calculateAndRenderAveragePrice() {
-  const allPrices = document.querySelectorAll("#freelance-list p:nth-child(2)");
+function calculateAndRenderAveragePrice(prices) {
+  // get average of the prices
+  let totalPrices = prices.reduce((acc, price) => acc + price, 0);
+  let average = totalPrices / prices.length;
+  
   const averagePrice = document.querySelector("#average-price");
 
-  
-
+  averagePrice.textContent = average;
 
 }
 
 // Render the freelancers
 function render(person) {
+
   const freelancerUl = document.querySelector("#freelance-list");
   const template = document.querySelector("#freelancer");
   const clone = template.content.cloneNode(true);
@@ -41,13 +45,14 @@ function render(person) {
   let p = clone.querySelectorAll("p");
 
   if (person) {
+    shownFreelancersPrices.push(person.price);
     h2.textContent = person.name;
     p[0].textContent = person.occupation;
     p[1].textContent = `Price: $${person.price}`;
   }
 
   freelancerUl.appendChild(clone);
-  calculateAndRenderAveragePrice();
+  calculateAndRenderAveragePrice(shownFreelancersPrices);
 }
 
 
@@ -60,4 +65,3 @@ const addFreelancerInterval = setInterval(() => {
   }
 }, 1000);
 
-render(); // We call this function once to render the initial state
