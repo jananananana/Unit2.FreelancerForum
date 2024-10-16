@@ -65,3 +65,8 @@ const addFreelancerInterval = setInterval(() => {
   }
 }, 1000);
 
+const p1 = { name: "Dr. Datefinder", price: 15, occupation: "matchmaker" };
+const p2 = { name: "Mrs. Peace-Peas", price: 33, occupation: "cook" };
+
+render(p1);
+render(p2);
